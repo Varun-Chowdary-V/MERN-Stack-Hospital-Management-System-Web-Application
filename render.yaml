@@ -14,7 +14,7 @@ services:
       - key: MONGO_URI
         fromDatabase:
           name: hms-database
-          property: mongodb+srv://varun9573:varunvvc4@cluster0.rpahkzn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+          property: connectionstring
 
   # Frontend Service (User Login)
   - type: web
