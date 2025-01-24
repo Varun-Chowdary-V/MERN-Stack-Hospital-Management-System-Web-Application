@@ -1,0 +1,45 @@
+services:
+  # Backend Service
+  - type: web
+    name: hms-backend
+    runtime: node
+    branch: main
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000 # Backend port
+      - key: MONGO_URI
+        fromDatabase:
+          name: hms-database
+          property: mongodb+srv://varun9573:varunvvc4@cluster0.rpahkzn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+  # Frontend Service (User Login)
+  - type: web
+    name: hms-frontend
+    runtime: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://hms-backend.onrender.com/api # Backend URL
+
+  # Admin Dashboard Service
+  - type: web
+    name: hms-dashboard
+    runtime: static
+    buildCommand: cd dashboard && npm install && npm run build
+    staticPublishPath: ./dashboard/dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://hms-backend.onrender.com/api # Backend URL
+
+databases:
+  # MongoDB Database
+  - name: hms-database
+    plan: starter
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: Allow all (not recommended for production)
