@@ -39,7 +39,7 @@ services:
 databases:
   # MongoDB Database
   - name: hms-database
-    plan: starter
+    plan: free
     ipAllowList:
       - source: 0.0.0.0/0
         description: Allow all (not recommended for production)
