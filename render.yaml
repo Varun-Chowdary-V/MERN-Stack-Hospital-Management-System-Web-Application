@@ -14,7 +14,7 @@ services:
       - key: MONGO_URI
         fromDatabase:
           name: hms-database
-          property: connectionstring
+          property: connectionString
 
   # Frontend Service (User Login)
   - type: web
